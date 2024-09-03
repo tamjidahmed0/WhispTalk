@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -33,4 +33,38 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
+
+
+
+
+
+
+
+# whispTalk
+
+whispTalk is a real-time chat application that enables users to communicate through text messages, audio calls, and video calls. It provides an intuitive interface for seamless and efficient communication.
+
+## Features
+
+- **Real-time Chat:** Instant messaging with other users.
+- **Audio Calls:** High-quality voice communication.
+- **Video Calls:** Smooth video calling experience.
+- **Responsive UI:** User-friendly interface with responsive design.
+
+## Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+- **Node.js** (version 14.x or above) - Download and install from [Node.js official website](https://nodejs.org/).
+- **npm** - Comes with Node.js, used for managing packages.
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/tamjidahmed0/WhispTalk
+   cd whispTalk
