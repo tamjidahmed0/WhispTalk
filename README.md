@@ -68,3 +68,9 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```bash
    git clone https://github.com/tamjidahmed0/WhispTalk
    cd whispTalk
+   
+2. **Run the code on local server:**
+
+```bash
+npm run dev
+```
