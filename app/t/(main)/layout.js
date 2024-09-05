@@ -1,10 +1,12 @@
 
 import { Inter } from "next/font/google";
-// import "./globals.css";
+// import "../../globals.css";
 import Sidebar from "@/components/sidebar";
 import Chat from '@/components/chat'
 import StoreProvider from "@/app/storeProvider/storeProvider";
 import { AppProvider } from "@/context/socket";
+import CallModal from "@/modal/callModal";
+import CallLayout from "@/components/callLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +26,8 @@ export default function RootLayout({ children}) {
    {/* <StoreProvider> */}
    
     <main className="  flex h-screen">
+      {/* <CallModal /> */}
+      {/* <CallLayout /> */}
         
         <Sidebar />
         {/* <Chat /> */}

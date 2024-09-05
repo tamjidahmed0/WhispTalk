@@ -5,6 +5,8 @@ import blockSliceReducer from '@/app/features/blockSlice'
 import rightSidebarReducer from '@/app/features/rightsidebarSlice'
 import socketReducer from '@/app/features/socket'
 import profileDetailsReducer from '@/app/features/profileDetails'
+import callToggleSliceReducer from '@/app/features/callToggleSlice'
+import incommingCallReducer from '@/app/features/incommingCallSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
     blockSlice:blockSliceReducer,
     rightsidebar:rightSidebarReducer,
     socket:socketReducer,
-    profileDetails:profileDetailsReducer
+    profileDetails:profileDetailsReducer,
+    calltoggle:callToggleSliceReducer,
+    IncommingCall: incommingCallReducer
   },
 })

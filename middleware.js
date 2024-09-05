@@ -41,7 +41,7 @@ export async function middleware(request) {
 
 // Define the paths that the middleware should match
 export const config = {
-  matcher: ['/','/t/:path*',  '/register', '/login',],
+  matcher: ['/','/t/:path*', '/login',],
 };
 
 //'/checkpoint'

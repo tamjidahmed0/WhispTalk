@@ -12,6 +12,7 @@ import { setDetails } from "@/app/features/rightsidebarSlice";
 import { useSocketContext } from "@/context/socket";
 import getCookie from "@/services/getCookie";
 
+
 const DynamicMessagesPage = ({ params }) => {
   const socket = useSocketContext();
   console.log(params.message_id, "params");
@@ -22,12 +23,14 @@ const DynamicMessagesPage = ({ params }) => {
   const [receiverDetails, setReceiverDetails] = useState({});
   const [inputText, setInputText] = useState("");
   const [profileDetails, setProfileDetails] = useState({});
+  const [id , setId] = useState('')
 
   //Message fetch
   useEffect(() => {
     const getMessages = async () => {
       try {
         const userId = await getCookie("c_user");
+        setId(userId.value)
 
         const result = await getAllMessages(params.message_id);
         const profile = await getProfileDetails(userId.value);
@@ -126,11 +129,38 @@ const DynamicMessagesPage = ({ params }) => {
 
 
 
-  const handleCall = () =>{
-    console.log('call')
+  const handleCall = async() =>{
+//     console.log('call')
+//  const call_url = '/t/groupcall'
+
+//  window.open(call_url,   '_blank', // Opens in a new window
+//   'width=800,height=600,resizable=yes,scrollbars=no,status=no')
+
+
+  if( socket){
+    socket.emit('user:incomming' , {
+      id:id,
+      requestForCalling:params.message_id,
+      callerSocketId:socket.id,
+      // peerOffer: peerId
+    })
+  
+  }
+    
+console.log(id, 'click id')
+
   } 
 
+// useEffect(()=>{
 
+//   if(socket){
+//     socket.on('incommingoffer', (data)=>{
+//       console.log(data)
+//     })
+//   }
+
+
+// },[socket])
 
 
 
@@ -150,6 +180,8 @@ const DynamicMessagesPage = ({ params }) => {
               <span className="text-green-500">Online</span>
             </div>
           </div>
+
+      
 
           <div className="mr-20 flex ">
             <div className=" mr-5 p-3  rounded-xl" >
