@@ -4,7 +4,7 @@ import Image from "next/image";
 import tamjid from "@/public/tamjid.jpg";
 import { Phone, Bell, Prohibit, Trash, DotsThreeCircle  } from "@phosphor-icons/react";
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserBlockModal } from '@/app/features/blockSlice';
+import { setUserBlockModal } from '@/features/blockSlice';
 import BlockModal from '@/components/blockModal'
 
 
@@ -40,7 +40,7 @@ const rightSidebar = () => {
 
       <div className=" mt-10 border-b-2">
         <h1 className=" font-medium text-gray-500">About</h1>
-        <p className={`${darkMode === true && 'text-white'} mt-5 mb-4`}> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p>
+        <p className={`${darkMode === true && 'text-white'} mt-5 mb-4`}>{sidebarDetails.receiverAbout} </p>
       </div>
 
       {/* end bio */}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setDarkMode } from '@/app/features/darkModeSlice';
+import { setDarkMode } from '@/features/darkModeSlice';
 import { X  } from "@phosphor-icons/react";
 
 const darkModal = ({ isOpen, onClose }) => {

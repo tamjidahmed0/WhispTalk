@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import DarkModal from '@/components/darkModal'
 import { useSelector, useDispatch } from 'react-redux';
-import { setDarkMode } from '@/app/features/darkModeSlice';
+import { setDarkMode } from '@/features/darkModeSlice';
 
 const DarkMode = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

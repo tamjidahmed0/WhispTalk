@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { X , Upload} from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import tamjid from "@/public/tamjid.jpg";
-import { updateProfileField } from "@/app/features/profileDetails";
+import { updateProfileField } from "@/features/profileDetails";
 import ImageUpload from "@/lib/imageUpload";
 
 const PhotoModal = ({ details }) => {

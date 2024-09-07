@@ -49,11 +49,11 @@
 
 
 import { Inter } from "next/font/google";
-import StoreProvider from "@/app/storeProvider/storeProvider";
+import StoreProvider from "@/storeProvider/storeProvider";
 import CallLayout from "@/components/callLayout";
-import DraggableDiv from "@/modal/dragablediv"; 
 
-import "../globals.css";
+
+// import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

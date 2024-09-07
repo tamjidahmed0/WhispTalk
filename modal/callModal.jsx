@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { PhoneX, Phone, Minus } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import tamjid from "@/public/tamjid.jpg";
-import { updateProfileField } from "@/app/features/profileDetails";
-import { Calltoggle } from "@/app/features/callToggleSlice";
+import { updateProfileField } from "@/features/profileDetails";
+import { Calltoggle } from "@/features/callToggleSlice";
 import ImageUpload from "@/lib/imageUpload";
 import { useSocketContext } from "@/context/socket";
+import { setRejectCall } from "@/features/rejectCall";
 // import '@/app/globals.css'
 
 const CallModal = ({ details }) => {
@@ -44,7 +45,7 @@ const CallModal = ({ details }) => {
       });
     }
 
-
+   dispatch(setRejectCall(false))
 
   }
 

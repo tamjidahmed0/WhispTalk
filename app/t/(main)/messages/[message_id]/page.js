@@ -5,10 +5,10 @@ import tamjid from "@/public/tamjid.jpg";
 import { Phone, DotsThreeCircle, PaperPlaneRight, Smiley, Paperclip } from "@phosphor-icons/react";
 import RightSidebar from "@/components/rightSidebar";
 import { useSelector, useDispatch } from "react-redux";
-import { toggle } from "@/app/features/toggleSlice";
+import { toggle } from "@/features/toggleSlice";
 import getAllMessages from "@/lib/getAllMessages";
 import getProfileDetails from "@/lib/getProfileDetails";
-import { setDetails } from "@/app/features/rightsidebarSlice";
+import { setDetails } from "@/features/rightsidebarSlice";
 import { useSocketContext } from "@/context/socket";
 import getCookie from "@/services/getCookie";
 
@@ -34,6 +34,7 @@ const DynamicMessagesPage = ({ params }) => {
 
         const result = await getAllMessages(params.message_id);
         const profile = await getProfileDetails(userId.value);
+        console.log(profile, 'profile')
 
         const { data, ...reminingResult } = result;
 
@@ -43,8 +44,9 @@ const DynamicMessagesPage = ({ params }) => {
 
         setMessages(data);
         setReceiverDetails(reminingResult);
+        console.log(reminingResult, 'remining reslt')
 
-        dispatch(setDetails({ receiverName: result.receiverName, receiverPic: result.receiverPic, receiverUsername: result.receiverUsername }));
+        dispatch(setDetails({ receiverName: result.receiverName, receiverPic: result.receiverPic, receiverUsername: result.receiverUsername , receiverAbout: result.receiverAbout}));
       } catch (error) {
         console.log(error);
       }
@@ -200,8 +202,16 @@ console.log(id, 'click id')
         {/* start body */}
 
         <div className={`h-[calc(100vh-12rem)] overflow-y-auto py-5 ${darkMode === true && "bg-black"}`}>
+          <div className=" flex flex-col items-center justify-center mb-32">
+          <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={100} height={100} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
+            <h1 className={ `font-bold text-xl mt-4 ${darkMode === true && 'text-white'}`}>{receiverDetails.receiverName}</h1>
+            <span className={`font-medium text-sm  w-[20rem] text-center ${darkMode === true ? 'text-white' :'text-gray-500'}`}>{receiverDetails.receiverAbout}</span>
+          </div>
           {messages?.map((data, index) => (
+          
+         
             <div key={index} className={`flex mb-1 ${data.whoSend ? "" : "justify-end"} mx-5 mb-10`}>
+            
               <div className="w-24 h-9 rounded-full flex items-center justify-center">
                 <Image src={`${process.env.NEXT_PUBLIC_API}/${data.profile}`} width={50} height={50} objectFit="cover" className={`${data.whoSend ? "" : "hidden"} rounded-full w-[4rem] h-[4rem] object-cover`} />
               </div>
@@ -217,6 +227,8 @@ console.log(id, 'click id')
                 </div>
               )}
             </div>
+
+       
           ))}
         </div>
 

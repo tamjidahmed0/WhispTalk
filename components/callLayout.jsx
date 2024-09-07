@@ -2,17 +2,18 @@
 import React, {useState, useEffect} from 'react'
 import CallModal from '@/modal/callModal'
 import MinimizeModal from '@/modal/minimizeModal'
-import { Calltoggle } from '@/app/features/callToggleSlice'
+import { Calltoggle } from '@/features/callToggleSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import DraggableDiv from '@/modal/dragablediv'
 import { useSocketContext } from "@/context/socket";
-import { setIncommingCallDetails } from '@/app/features/incommingCallSlice'
+import { setIncommingCallDetails } from '@/features/incommingCallSlice'
+import { setRejectCall } from '@/features/rejectCall'
 
 
 const callLayout = () => {
   const dispatch = useDispatch()
   const socket = useSocketContext();
   const isToggled = useSelector((state) => state.calltoggle.value);
+  const rejectCall = useSelector((state) => state.rejectCall.value);
   const callState = useSelector((state) => state.IncommingCall);
   
   const [incommingCall , setIncommingCall] = useState(false)
@@ -22,6 +23,7 @@ const callLayout = () => {
 
     if(socket){
       socket.on('incommingoffer', async(data)=>{
+        dispatch(setRejectCall(true))
        setIncommingCall(true)
       //  dispatch(setIncommingCallDetails(data))
        dispatch(setIncommingCallDetails({
@@ -64,7 +66,7 @@ const callLayout = () => {
   return (
     <div>
 
-{incommingCall && (
+{rejectCall && (
   isToggled ? <MinimizeModal /> : <CallModal />
 )}
 

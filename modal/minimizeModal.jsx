@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Calltoggle } from "@/app/features/callToggleSlice";
+import { Calltoggle } from "@/features/callToggleSlice";
 import Image from "next/image";
 import tamjid from "@/public/tamjid.jpg";
 import { PhoneX, Phone, Minus } from "@phosphor-icons/react";

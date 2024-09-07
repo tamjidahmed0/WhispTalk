@@ -4,6 +4,7 @@ const initialState = {
     receiverPic: "",
     receiverName: "",
     receiverUsername: "",
+    receiverAbout: ""
 };
 
 const rightsidebar = createSlice({
@@ -14,6 +15,7 @@ const rightsidebar = createSlice({
       state.receiverName = action.payload.receiverName;
       state.receiverUsername = action.payload.receiverUsername;
       state.receiverPic = action.payload.receiverPic;
+      state.receiverAbout = action.payload.receiverAbout
     },
   },
 });

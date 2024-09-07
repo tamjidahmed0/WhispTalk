@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
-import "@/app/t/(main)/globals.css";
+import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "WhispTalk",
+  title: "WhispTalk | Login",
   description: "This is whispTalk",
 };
 

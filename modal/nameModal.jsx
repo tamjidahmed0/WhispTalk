@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { X } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import UpdateName from "@/lib/updateName";
-import { updateProfileField } from "@/app/features/profileDetails";
+import { updateProfileField } from "@/features/profileDetails";
 
 const NameModal = ({userId}) => {
   const darkMode = useSelector((state) => state.darkMode);

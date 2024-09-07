@@ -11,7 +11,7 @@ import UsernameModal from '@/modal/usernameModal';
 import PhotoModal from '@/modal/photoModal';
 
 import { useSelector ,useDispatch } from 'react-redux';
-import { setProfile , updateProfileField} from '@/app/features/profileDetails';
+import { setProfile , updateProfileField} from '@/features/profileDetails';
 
 
 

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { X } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import UpdateUsername from "@/lib/updateUsername";
-import { updateProfileField } from "@/app/features/profileDetails";
+import { updateProfileField } from "@/features/profileDetails";
 
 const UsernameModal = ({userId, }) => {
   const dispatch = useDispatch()
