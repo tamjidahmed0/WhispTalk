@@ -7,21 +7,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useSocketContext } from "@/context/socket";
 import { setIncommingCallDetails } from '@/features/incommingCallSlice'
 import { setRejectCall } from '@/features/rejectCall'
-import { setMessageId } from '@/features/messageid'
+import { setHandleCall } from '@/features/handleCallSlice'
 
+import OutgoingCallModal from '@/modal/outgoingCallModal'
+import MinimizeOutgoingCall from '@/modal/minimizeoutgoingCall'
+import CallLayout from './callLayout'
 
-
-
-
-
-
-const callLayout = () => {
+const outgoingCallLayout = () => {
   const dispatch = useDispatch()
   const socket = useSocketContext();
   const isToggled = useSelector((state) => state.calltoggle.value);
-  const rejectCall = useSelector((state) => state.rejectCall.value);
+  const minimizeOutgoingCall = useSelector((state) => state.outgoingCall.value);
+  const handleCall = useSelector((state) => state.handleCall.value);
   const callState = useSelector((state) => state.IncommingCall);
-  const messageid = useSelector((state) => state.messageId.messageid);
+  
   const [incommingCall , setIncommingCall] = useState(false)
 
 
@@ -31,7 +30,7 @@ const callLayout = () => {
 
       socket.on('incommingoffer', async(data)=>{
 
-      
+        // const incommingCall = await new Audio('/incommingCall.mp3').play()
 
         dispatch(setRejectCall(true))
        setIncommingCall(true)
@@ -51,7 +50,7 @@ const callLayout = () => {
     }
 
     console.log(callState, 'callstate')
-  },[socket,])
+  },[socket])
 
 
   useEffect(()=>{
@@ -59,7 +58,7 @@ const callLayout = () => {
     if(socket){
       socket.on('call:rejected', (data)=>{
         console.log(data, 'call rejected')
-        dispatch(setRejectCall(false))
+        dispatch(setHandleCall(false))
         setIncommingCall(false)
         
       })
@@ -70,18 +69,17 @@ const callLayout = () => {
   },[socket])
 
 
-  console.log(rejectCall, 'reject call')
+
+
+
 
   return (
     <div>
-
-{incommingCall && (
-  isToggled ? <MinimizeModal /> : <CallModal />
+{/* {handleCall && <OutgoingCallModal />} */}
+{handleCall && (
+  minimizeOutgoingCall ? <MinimizeOutgoingCall /> : <OutgoingCallModal />
 )}
-
-{/* {incommingCall &&  <CallModal />} */}
-
-
+<CallLayout />
 {/* <MinimizeModal /> */}
 {/* <CallModal /> */}
     </div>
@@ -91,4 +89,4 @@ const callLayout = () => {
   )
 }
 
-export default callLayout
+export default outgoingCallLayout

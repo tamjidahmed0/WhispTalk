@@ -8,6 +8,9 @@ import profileDetailsReducer from '@/features/profileDetails'
 import callToggleSliceReducer from '@/features/callToggleSlice'
 import incommingCallReducer from '@/features/incommingCallSlice'
 import rejectCall from '@/features/rejectCall'
+import handleCallReducer from '@/features/handleCallSlice'
+import outgoingCallToggle from '@/features/outgoingCallToggle'
+import messageIdReducer from '@/features/messageid'
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +22,9 @@ export const store = configureStore({
     profileDetails:profileDetailsReducer,
     calltoggle:callToggleSliceReducer,
     IncommingCall: incommingCallReducer,
-    rejectCall :rejectCall
+    rejectCall :rejectCall,
+    handleCall: handleCallReducer,
+    outgoingCall: outgoingCallToggle,
+    messageId:messageIdReducer
   },
 })

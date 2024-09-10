@@ -51,10 +51,10 @@
 import { Inter } from "next/font/google";
 import StoreProvider from "@/storeProvider/storeProvider";
 import CallLayout from "@/components/callLayout";
-
+import OutgoingCallLayout from "@/components/outgoingCallLayout";
 
 // import "../globals.css";
-
+ 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -67,7 +67,13 @@ export default function RootLayout({ children }) {
    
       <body className={inter.className}>
         <StoreProvider>
-          <CallLayout />
+       
+          <OutgoingCallLayout />
+   
+     
+              {/* <CallLayout /> */}
+             
+       
        
         {children}
         </StoreProvider>

@@ -11,22 +11,31 @@ import getProfileDetails from "@/lib/getProfileDetails";
 import { setDetails } from "@/features/rightsidebarSlice";
 import { useSocketContext } from "@/context/socket";
 import getCookie from "@/services/getCookie";
-
+import { setHandleCall } from "@/features/handleCallSlice";
+import OutgoingCallLayout from "@/components/outgoingCallLayout";
+import { setMessageId } from "@/features/messageid";
 
 const DynamicMessagesPage = ({ params }) => {
   const socket = useSocketContext();
   console.log(params.message_id, "params");
   const dispatch = useDispatch();
   const isToggled = useSelector((state) => state.toggle.value);
+  const handleClick = useSelector((state) => state.handleCall.value);
+  const messageid = useSelector((state) => state.messageId.messageid);
   const darkMode = useSelector((state) => state.darkMode);
   const [messages, setMessages] = useState([]);
   const [receiverDetails, setReceiverDetails] = useState({});
   const [inputText, setInputText] = useState("");
   const [profileDetails, setProfileDetails] = useState({});
   const [id , setId] = useState('')
+ 
 
   //Message fetch
   useEffect(() => {
+
+   
+    // console.log(idmessage, 'idmessage')
+
     const getMessages = async () => {
       try {
         const userId = await getCookie("c_user");
@@ -138,6 +147,7 @@ const DynamicMessagesPage = ({ params }) => {
 //  window.open(call_url,   '_blank', // Opens in a new window
 //   'width=800,height=600,resizable=yes,scrollbars=no,status=no')
 
+dispatch(setHandleCall())
 
   if( socket){
     socket.emit('user:incomming' , {
@@ -153,17 +163,15 @@ console.log(id, 'click id')
 
   } 
 
-// useEffect(()=>{
-
-//   if(socket){
-//     socket.on('incommingoffer', (data)=>{
-//       console.log(data)
-//     })
-//   }
 
 
-// },[socket])
+useEffect(()=>{
 
+  dispatch(setMessageId(params.message_id))
+
+
+
+},[dispatch])
 
 
 
@@ -253,6 +261,7 @@ console.log(id, 'click id')
       {/* start right sidebar */}
 
       {isToggled && <RightSidebar />}
+      {/* {handleClick && <OutgoingCallLayout />} */}
 
       {/* end right sidebar */}
     </div>
