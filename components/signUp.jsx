@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import toastService from '@/services/toastService';
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import userSignUp from "@/lib/userSignUp";
 
 const Register = () => {
   const router = useRouter()
@@ -16,9 +17,17 @@ const Register = () => {
     const email = formData.get('email')
     const password = formData.get('password')
 
-//     const result = await toastService.promise(
-      
-//   )
+try {
+    const result = await toastService.promise(
+      userSignUp({name, username, email, password})
+    )
+
+    console.log(result, 'signup result')
+
+
+} catch (error) {
+    console.log(error , 'error')
+}
 
 
 

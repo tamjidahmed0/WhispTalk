@@ -1,80 +1,108 @@
 "use client";
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useState, useEffect} from "react";
+import { useSelector } from "react-redux";
 import { X } from "@phosphor-icons/react";
+import Image from "next/image";
+import tamjid from '@/public/tamjid.jpg'
+import getMsgRequest from "@/lib/getMessageRequest";
 
-const MessageRequests = ({ isOpen, onClose }) => {
+const MessageRequest = ({ isOpen, onClose, name }) => {
   if (!isOpen) return null;
+  const [requestList, setRequestList] = useState([])
 
-  const dispatch = useDispatch();
+
+  useEffect(()=>{
+
+const getRequest = async () =>{
+  try {
+    
+    const result = await getMsgRequest()
+
+    const {count ,data} = result
+
+    setRequestList(data)
+
+    console.log(data)
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+getRequest()
+
+
+
+
+
+  },[])
+
+
+
   const darkMode = useSelector((state) => state.darkMode);
-  const [updateResult, setUpdateResult] = useState({});
-
-  // Close modal function
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
+  const sidebarDetails = useSelector((state) => state.rightsidebar);
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={handleOverlayClick}></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50 " onClick={onClose}></div>
 
       {/* Modal content */}
-      <div
-        className={`relative text-black rounded-lg px-10 py-11 w-[30rem] ${
-          darkMode ? "bg-[#1E262F]" : "bg-white"
-        }`}
-      >
+      <div className={`relative  text-black rounded-lg px-10 py-11 w-[30rem] ${darkMode === true ? "bg-[#1E262F]" : "bg-white"}`}>
         {/* Header */}
         <div className="flex items-center justify-between mb-12 border-b">
-          <h2 className={`text-2xl font-bold ${darkMode && "text-white"}`}>Username</h2>
-          <button onClick={onClose} className="text-gray-400">
+          <h2 className={`text-2xl font-bold ${darkMode === true && "text-white"}`}>Message requests</h2>
+          <button onClick={onClose} className="text-gray-400 ">
             <X size={24} />
           </button>
         </div>
 
-        <h1 className="text-green-600 ml-7">{updateResult.msg}</h1>
 
-        <form className="w-full max-w-md mx-auto mt-10 p-6">
-          <div className="mb-4">
-            <label
-              className={`block text-sm font-bold mb-2 ${
-                darkMode ? "text-white" : "text-gray-700"
-              }`}
-              htmlFor="username"
-            >
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              name="userName"
-              placeholder="username"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <div className="w-full h-[300px] overflow-y-auto  ">
 
-          <p
-            className={`text-sm mt-6 ${darkMode ? "text-white" : "text-gray-700"}`}
-          >
-            If you change your username, it will reflect to others.
-          </p>
+        {requestList.length > 0 ? (
+  requestList.map((value, index) => (
+    <div key={index} className="flex bg-gray-200 px-6 py-4 rounded mb-4">
+      <Image
+        alt="image"
+        src={`${process.env.NEXT_PUBLIC_API}/${value.profile}`}
+        width={50}
+        height={50}
+        objectFit="cover"
+        className="rounded-full w-[4rem] h-[4rem] object-cover"
+      />
+      <div className="ml-5">
+        <h1 className="font-bold text-lg">{value.name}</h1>
+        <span className="font-semibold text-gray-500">{value.convText}</span>
+        <div className="flex space-x-8 mt-4">
+          <button className="bg-blue-500 text-white px-1 py-1 rounded">
+            Accept
+          </button>
+          <button className="bg-gray-300 px-1 py-1 rounded">Delete</button>
+        </div>
+      </div>
+      <span className="ml-20 font-semibold text-gray-500 text-sm">{value.date}</span>
+    </div>
+  ))
+) : (
+  // Display a message or a component when the requestList is empty
+  <div className="text-center text-gray-500 py-4">
+    No requests available.
+  </div>
+)}
 
-          <div className="mt-10">
-            <button
-              className="w-full select-none rounded-lg bg-blue-500 py-3 px-6 text-center text-md font-bold text-white shadow-md transition-all hover:shadow-lg focus:opacity-85 focus:shadow-none active:opacity-85 active:shadow-none disabled:pointer-events-none disabled:opacity-50"
-              type="submit"
-            >
-              Done
-            </button>
-          </div>
-        </form>
+     
+  
+
+   
+    </div>
+        
+
+
+
+
       </div>
     </div>
   );
 };
 
-export default MessageRequests;
+export default MessageRequest;

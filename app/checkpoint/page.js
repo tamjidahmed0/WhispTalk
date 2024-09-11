@@ -6,6 +6,7 @@ import "@/app/globals.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import toastService from "@/services/toastService";
+import submitOtp from "@/lib/submitOtp";
 
 const OtpPage = () => {
   const inputs = useRef([]);
@@ -102,7 +103,7 @@ const OtpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const stringOtp = otpValues.join("");
-    const result = await toastService.promise(postOtp(stringOtp));
+    const result = await toastService.promise(submitOtp(stringOtp));
     console.log(otpValues);
   };
 

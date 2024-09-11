@@ -65,7 +65,7 @@ const Chat = () => {
           </div>
 
           {/* Modal Component */}
-          <MessageRequests isOpen={openRequestModal} onClose={closeModal} />
+        
         </div>
 
         <div className="overflow-y-auto h-[calc(100vh-14rem)] mt-10">
@@ -90,6 +90,8 @@ const Chat = () => {
               <h1 className={`${darkMode ? "text-white" : "text-gray-500"}`}>No conversations available.</h1>
             </div>
           )}
+
+<MessageRequests isOpen={openRequestModal} onClose={closeModal} />
         </div>
       </div>
     </div>
