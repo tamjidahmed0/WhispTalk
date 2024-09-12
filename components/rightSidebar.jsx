@@ -9,7 +9,7 @@ import BlockModal from '@/components/blockModal'
 
 
 
-const rightSidebar = () => {
+const RightSidebar = () => {
   const darkMode = useSelector((state) => state.darkMode);
   const sidebarDetails = useSelector((state) => state.rightsidebar);
   const blockModal = useSelector((state) => state.blockModal);
@@ -89,4 +89,4 @@ const rightSidebar = () => {
   )
 }
 
-export default rightSidebar
+export default RightSidebar

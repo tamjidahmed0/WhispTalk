@@ -13,7 +13,7 @@ import OutgoingCallModal from '@/modal/outgoingCallModal'
 import MinimizeOutgoingCall from '@/modal/minimizeoutgoingCall'
 import CallLayout from './callLayout'
 
-const outgoingCallLayout = () => {
+const OutgoingCallLayout = () => {
   const dispatch = useDispatch()
   const socket = useSocketContext();
   const isToggled = useSelector((state) => state.calltoggle.value);
@@ -89,4 +89,4 @@ const outgoingCallLayout = () => {
   )
 }
 
-export default outgoingCallLayout
+export default OutgoingCallLayout

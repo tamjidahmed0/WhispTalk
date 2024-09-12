@@ -33,8 +33,8 @@ const DynamicProfile = () => {
 
         <h1 className=" text-xl font-semibold">Block messages and calls</h1>
         <ul className="list-disc pl-5 space-y-2 text-sm">
-          <li>Your account won't receive messages or calls from sumon's account.</li>
-          <li>If you're in shared groups or rooms with this account, you'll still be able to see and communicate with each other. You can leave groups or rooms anytime.</li>
+          <li>Your account won&rsquo;t receive messages or calls from sumon&rsquo;s account.</li>
+          <li>If you&rsquo;re in shared groups or rooms with this account, you&rsquo;ll still be able to see and communicate with each other. You can leave groups or rooms anytime.</li>
         </ul>
 
         <div className=" flex justify-end ">

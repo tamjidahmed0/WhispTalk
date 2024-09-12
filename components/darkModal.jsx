@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setDarkMode } from '@/features/darkModeSlice';
 import { X  } from "@phosphor-icons/react";
 
-const darkModal = ({ isOpen, onClose }) => {
+const DarkModal = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode);
     if (!isOpen) return null;
-    const dispatch = useDispatch();
-    const darkMode = useSelector((state) => state.darkMode);
+
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -40,4 +41,4 @@ const darkModal = ({ isOpen, onClose }) => {
   )
 }
 
-export default darkModal
+export default DarkModal

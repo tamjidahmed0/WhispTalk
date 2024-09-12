@@ -15,7 +15,7 @@ import { setMessageId } from '@/features/messageid'
 
 
 
-const callLayout = () => {
+const CallLayout = () => {
   const dispatch = useDispatch()
   const socket = useSocketContext();
   const isToggled = useSelector((state) => state.calltoggle.value);
@@ -91,4 +91,4 @@ const callLayout = () => {
   )
 }
 
-export default callLayout
+export default CallLayout

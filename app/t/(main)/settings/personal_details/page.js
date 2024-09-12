@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useSelector } from 'react-redux';
-const personalDetails = () => {
+const PersonalDetails = () => {
   const darkMode = useSelector((state) => state.darkMode);
 
   return (
@@ -9,4 +9,4 @@ const personalDetails = () => {
   )
 }
 
-export default personalDetails
+export default PersonalDetails

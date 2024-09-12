@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import logopng from '@/public/logo.png'
 import Image from 'next/image';
 
-const page = () => {
+const Page = () => {
   const darkMode = useSelector((state) => state.darkMode);
   return (
     // <Chat />
@@ -15,4 +15,4 @@ const page = () => {
   ) 
 }
 
-export default page
+export default Page

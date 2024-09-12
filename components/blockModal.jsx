@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { X } from "@phosphor-icons/react";
 
 const Modal = ({ isOpen, onClose, name }) => {
-  if (!isOpen) return null;
   const darkMode = useSelector((state) => state.darkMode);
   const sidebarDetails = useSelector((state) => state.rightsidebar);
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       {/* Background overlay */}
@@ -34,8 +35,8 @@ const Modal = ({ isOpen, onClose, name }) => {
 
           <h1 className=" text-xl font-semibold">Block messages and calls</h1>
           <ul className="list-disc pl-5 space-y-2 text-sm">
-            <li>Your account won't receive messages or calls from {sidebarDetails.receiverName}'s account.</li>
-            <li>If you're in shared groups or rooms with this account, you'll still be able to see and communicate with each other. You can leave groups or rooms anytime.</li>
+            <li>Your account won&rsquo;t receive messages or calls from {sidebarDetails.receiverName}&rsquo;s account.</li>
+            <li>If you&rsquo;re in shared groups or rooms with this account, you&rsquo;ll still be able to see and communicate with each other. You can leave groups or rooms anytime.</li>
           </ul>
 
           <div className=" flex justify-end ">
