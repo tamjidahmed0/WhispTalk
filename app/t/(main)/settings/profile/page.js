@@ -9,6 +9,7 @@ import getCookie from '@/services/getCookie';
 import NameModal from '@/modal/nameModal';
 import UsernameModal from '@/modal/usernameModal';
 import PhotoModal from '@/modal/photoModal';
+import AboutModal from '@/modal/AboutModal';
 
 import { useSelector ,useDispatch } from 'react-redux';
 import { setProfile , updateProfileField} from '@/features/profileDetails';
@@ -61,6 +62,7 @@ console.log(profileDetails, 'profle det')
     { label: 'Name', link: 'name' },
     { label: 'Username', link: 'username' },
     { label: 'Profile picture', link: 'photo' },
+    { label: 'Edit about', link: 'about' },
   ];
 
   const renderModal = () => {
@@ -71,6 +73,8 @@ console.log(profileDetails, 'profle det')
         return <UsernameModal userId={userId} updateProfileField ={updateProfileField}/>;
       case 'photo':
         return <PhotoModal details = {profileDetails}/>;
+      case 'about':
+        return <AboutModal userId={userId} details = {profileDetails}/>;
       default:
         return null;
     }
@@ -83,6 +87,12 @@ console.log(profileDetails, 'profle det')
           <Image alt='image' src={`${process.env.NEXT_PUBLIC_API}/${profileDetails?.profilePic}`} width={100} height={100} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
           <h1 className={`mt-3 text-xl font-bold ${darkMode === true && ' text-white'}`}>{profileDetails.name}</h1>
           <span className=' font-semibold text-gray-500'>{`${profileDetails.username}`} </span> 
+          <div className='w-96  break-words overflow-wrap break-word whitespace-normal text-center mt-3'>
+  <span className={`font-normal text-gray-500 ${darkMode ===true && 'text-white'} `}>
+   {profileDetails.about}
+  </span> 
+</div>
+
         </div>
         <div className="py-10 mt-16">
           <ul className={` ${darkMode === true && ' text-white'}`}>

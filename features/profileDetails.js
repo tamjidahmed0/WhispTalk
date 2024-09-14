@@ -6,6 +6,7 @@ const initialState = {
   name: '',
   username: '',
   email: '',
+  about: '',
   verified: false,
 };
 
@@ -21,6 +22,7 @@ const profileDetails = createSlice({
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.verified = action.payload.verified;
+      state.about = action.payload.about
     },
 
     // Update a specific field dynamically

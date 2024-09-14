@@ -8,7 +8,7 @@ import getAllChat from "@/lib/getAllChats";
 import MessageRequests from "@/modal/messageRequest";
 import getMsgRequest from "@/lib/getMessageRequest";
 import { addUser, updateUserById, removeUserById } from "@/features/chatSlice";
-
+import { usePathname } from "next/navigation";
 
 
 const Chat = () => {
@@ -19,6 +19,7 @@ const Chat = () => {
   // const [conversation, setConversation] = useState([]);
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [requestData, setRequestData] = useState({});
+  const pathname = usePathname()
 
   const openModal = () => setOpenRequestModal(true);
   const closeModal = () => setOpenRequestModal(false);
@@ -76,10 +77,13 @@ const Chat = () => {
 
         <div className="overflow-y-auto h-[calc(100vh-14rem)] mt-10">
           {Array.isArray(conversation) && conversation.length > 0 ? (
-            conversation.map((user, index) => (
-              <Link href={`/t/messages/${user.Id}`} key={index}>
-                <div className={`mb-4 py-5 px-4 flex rounded-xl ${darkMode ? "bg-[#1E262F]" : "bg-white"} relative`}>
-                  <Image src={`${process.env.NEXT_PUBLIC_API}/${user.profile}`} width={60} height={60} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
+            conversation.map((user, index) => {
+
+              const isActive = pathname.startsWith(`/t/messages/${user.Id}`);
+              return (
+                <Link href={`/t/messages/${user.Id}`} key={index}>
+                <div className={`mb-4 py-5 px-4 flex rounded-xl ${darkMode ? "bg-[#1E262F]" : "bg-white"} relative ${isActive && "bg-blue-200"}`}>
+                  <Image src={`${process.env.NEXT_PUBLIC_API}/${user.profile}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
                   <div className={`ml-4 ${darkMode && "text-white"}`}>
                     <h1 className="font-bold">{user.name}</h1>
                     <p className={`${darkMode ? "text-white" : "text-gray-500"} mt-1`}>{user.text}</p>
@@ -90,7 +94,8 @@ const Chat = () => {
                   </div>
                 </div>
               </Link>
-            ))
+              )
+            })
           ) : (
             <div>
               <h1 className={`${darkMode ? "text-white" : "text-gray-500"}`}>No conversations available.</h1>

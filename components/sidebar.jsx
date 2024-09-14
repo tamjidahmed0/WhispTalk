@@ -79,7 +79,7 @@ const Sidebar = () => {
 
       {/* Bottom User Icon */}
       <div className="mt-auto cursor-pointer" onClick={logOut}>
-        <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${profileDetails?.profilePic}`} width={60} height={60} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
+        <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${profileDetails?.profilePic}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
       </div>
     </div>
   );

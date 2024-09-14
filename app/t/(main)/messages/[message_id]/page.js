@@ -190,7 +190,7 @@ useEffect(()=>{
       {/* start header */}
         <div className={`${isToggled ? "w-[calc(100vw-56rem)]" : "w-[calc(100vw-31rem)]"} ${darkMode === true ? "bg-[#1E262F]" : "bg-white"}    h-[7rem] flex items-center justify-between border-r`}>
           <div className="ml-7 flex items-center ">
-            <Image src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={60} height={60} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
+            <Image src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
             <div className="pl-3">
               <h1 className={`font-bold text-lg ${darkMode === true && "text-white"}`}>{receiverDetails.receiverName}</h1>
               <span className="text-green-500">Online</span>
@@ -217,7 +217,7 @@ useEffect(()=>{
 
         <div className={`h-[calc(100vh-12rem)] overflow-y-auto py-5 ${darkMode === true && "bg-black"}`}>
           <div className=" flex flex-col items-center justify-center mb-32">
-          <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={100} height={100} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
+          <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={200} height={200} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
             <h1 className={ `font-bold text-xl mt-4 ${darkMode === true && 'text-white'}`}>{receiverDetails.receiverName}</h1>
             <span className={`font-medium text-sm  w-[20rem] text-center ${darkMode === true ? 'text-white' :'text-gray-500'}`}>{receiverDetails.receiverAbout}</span>
           </div>
@@ -227,7 +227,7 @@ useEffect(()=>{
             <div key={index} className={`flex mb-1 ${data.whoSend ? "" : "justify-end"} mx-5 mb-10`}>
             
               <div className="w-24 h-9 rounded-full flex items-center justify-center">
-                <Image src={`${process.env.NEXT_PUBLIC_API}/${data.profile}`} width={50} height={50} objectFit="cover" className={`${data.whoSend ? "" : "hidden"} rounded-full w-[4rem] h-[4rem] object-cover`} />
+                <Image src={`${process.env.NEXT_PUBLIC_API}/${data.profile}`} width={200} height={200} objectFit="cover" className={`${data.whoSend ? "" : "hidden"} rounded-full w-[4rem] h-[4rem] object-cover`} />
               </div>
               {data.type === "image" ? (
                 <Image src={`${process.env.NEXT_PUBLIC_API}/${data.text}`} width={400} height={400} className="rounded-md border" />
