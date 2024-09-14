@@ -3,15 +3,20 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MagnifyingGlass, SlidersHorizontal, ChatDots } from "@phosphor-icons/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import getAllChat from "@/lib/getAllChats";
 import MessageRequests from "@/modal/messageRequest";
 import getMsgRequest from "@/lib/getMessageRequest";
+import { addUser, updateUserById, removeUserById } from "@/features/chatSlice";
+
+
 
 const Chat = () => {
   const darkMode = useSelector((state) => state.darkMode);
+  const conversation = useSelector((state) => state.chats.users);
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const [conversation, setConversation] = useState([]);
+  // const [conversation, setConversation] = useState([]);
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [requestData, setRequestData] = useState({});
 
@@ -22,7 +27,8 @@ const Chat = () => {
     const getChat = async () => {
       try {
         const result = await getAllChat(search);
-        setConversation(result);
+        dispatch(addUser(result))
+        // setConversation(result);
       } catch (error) {
         console.log(error);
       }
@@ -66,7 +72,7 @@ const Chat = () => {
 
           {/* Modal Component */}
         
-        </div>
+        </div>    
 
         <div className="overflow-y-auto h-[calc(100vh-14rem)] mt-10">
           {Array.isArray(conversation) && conversation.length > 0 ? (
@@ -80,7 +86,7 @@ const Chat = () => {
                   </div>
                   <div className="absolute right-5 flex flex-col">
                     <span className="text-gray-500">{user.date}</span>
-                    <span className="bg-blue-500 flex items-center justify-center rounded-full w-6 h-6 text-white mt-3">2</span>
+                    {/* <span className="bg-blue-500 flex items-center justify-center rounded-full w-6 h-6 text-white mt-3">2</span> */}
                   </div>
                 </div>
               </Link>

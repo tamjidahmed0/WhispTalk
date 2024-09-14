@@ -11,6 +11,7 @@ import rejectCall from '@/features/rejectCall'
 import handleCallReducer from '@/features/handleCallSlice'
 import outgoingCallToggle from '@/features/outgoingCallToggle'
 import messageIdReducer from '@/features/messageid'
+import chatReducer from '@/features/chatSlice'
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     rejectCall :rejectCall,
     handleCall: handleCallReducer,
     outgoingCall: outgoingCallToggle,
-    messageId:messageIdReducer
+    messageId:messageIdReducer,
+    chats: chatReducer
   },
 })

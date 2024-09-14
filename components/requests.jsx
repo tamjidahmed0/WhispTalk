@@ -2,15 +2,18 @@
 import React, {useState, useEffect} from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { UserSound , UserList  } from "@phosphor-icons/react";
+import { UserSound , UserList, Vault  } from "@phosphor-icons/react";
 import tamjid from "@/public/tamjid.jpg";
 import { useSelector } from "react-redux";
 import getAllChat from "@/lib/getAllChats";
 import Popoup from "@/modal/popoup";
 import { usePathname } from "next/navigation";
 import getConnectionReq from "@/lib/getConnectionReq";
+import { useSocketContext } from "@/context/socket";
+import getCookie from "@/services/getCookie";
 
 const Request = () => {
+  const socket = useSocketContext()
     const pathname = usePathname()
   const darkMode = useSelector((state) => state.darkMode);
   const [search, setSearch] = useState("");
@@ -46,7 +49,23 @@ setRequestCount(msg)
     getRequest()
 },[])
 
-console.log(requsetCount, 'request count')
+
+const handleConfirm = async(Id) =>{
+  console.log('click')
+  // console.log(Id)
+  // const userId = (await getCookie('c_user')).value;
+  // if(socket){
+  //    socket.emit('messageAccept', {
+  //     requestId : Id,
+  //     userId : userId,
+  //     socketId :socket.id
+  //    })
+  // }
+
+
+
+
+}
 
 
 
@@ -64,7 +83,7 @@ console.log(requsetCount, 'request count')
         <div className=" flex flex-col ml-3">
         <h1 className=" font-semibold text-lg">{value.name}</h1>
         <div className=" flex space-x-8 mt-4 ">
-        <button className=" bg-blue-500 text-white px-2 py-2 rounded">Confirm</button>
+        <button className=" bg-blue-500 text-white px-2 py-2 rounded" onClick={handleConfirm}>Confirm</button>
         <button className=" bg-gray-300  px-2 py-2 rounded">Delete</button>
         </div>
         </div>

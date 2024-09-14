@@ -14,6 +14,7 @@ import getCookie from "@/services/getCookie";
 import { setHandleCall } from "@/features/handleCallSlice";
 import OutgoingCallLayout from "@/components/outgoingCallLayout";
 import { setMessageId } from "@/features/messageid";
+import { updateUserById } from "@/features/chatSlice";
 
 const DynamicMessagesPage = ({ params }) => {
   const socket = useSocketContext();
@@ -48,6 +49,7 @@ const DynamicMessagesPage = ({ params }) => {
         const { data, ...reminingResult } = result;
 
         // console.log(profile, 'profile')
+        console.log(data)
 
         setProfileDetails(profile);
 
@@ -106,6 +108,8 @@ const DynamicMessagesPage = ({ params }) => {
     if (socket) {
       socket.on("sendermsg", (data) => {
         setMessages((msg) => [...msg, data]);
+        const trimText = data.text.substring(0, 23);
+        dispatch(updateUserById({Id: params.message_id , newText:`You: ${trimText}`}))
       });
     }
 
@@ -126,6 +130,8 @@ const DynamicMessagesPage = ({ params }) => {
       socket.on("receivermessage", (data) => {
         if (params.message_id === data.iSend) {
           setMessages((msgs) => [...msgs, data]);
+          const trimText = data.text.substring(0, 23);
+          dispatch(updateUserById({Id: params.message_id , newText:trimText}))
         }
       });
     }
@@ -230,9 +236,12 @@ useEffect(()=>{
                   <button onClick={() => playAudio(index)}>Play</button>
                 </div>
               ) : (
-                <div className={`flex max-w-96  rounded-lg p-3 gap-3 items-start  cursor-pointer ${data.whoSend ? " bg-white" : "bg-blue-500 "}`}>
-                  <p className={`text-gray-700 ${data.whoSend ? "text-black" : "text-white "}`}>{data.text}</p>
-                </div>
+                <div className={`flex rounded-lg p-3 gap-3 items-start cursor-pointer ${data.whoSend ? "bg-white" : "bg-blue-500 "} max-w-xs`}>
+                <p className={`text-gray-700 ${data.whoSend ? "text-black" : "text-white "} break-words overflow-hidden`}>
+                  {data.text}
+                </p>
+              </div>
+              
               )}
             </div>
 

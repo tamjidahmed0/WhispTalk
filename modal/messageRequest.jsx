@@ -1,15 +1,23 @@
 "use client";
 import React, {useState, useEffect} from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { X } from "@phosphor-icons/react";
 import Image from "next/image";
 import tamjid from '@/public/tamjid.jpg'
 import getMsgRequest from "@/lib/getMessageRequest";
+import { useSocketContext } from "@/context/socket";
+import getCookie from "@/services/getCookie";
+import { addUser , addUserObject} from "@/features/chatSlice";
+
 
 const MessageRequest = ({ isOpen, onClose, name }) => {
   if (!isOpen) return null;
   const [requestList, setRequestList] = useState([])
-
+  const socket = useSocketContext()
+  const dispatch = useDispatch()
+  const darkMode = useSelector((state) => state.darkMode);
+  const sidebarDetails = useSelector((state) => state.rightsidebar);
+  const conversation = useSelector((state) => state.chats.users);
 
   useEffect(()=>{
 
@@ -35,12 +43,51 @@ getRequest()
 
 
 
-  },[])
+  },[conversation])
+
+
+const handleAccept = async (Id) =>{
+
+  const userId = (await getCookie('c_user')).value;
+  if(socket){
+     socket.emit('messageAccept', {
+      requestId : Id,
+      userId : userId,
+      socketId :socket.id
+     })
+  }
+
+
+}
+
+
+useEffect(()=>{
+
+if(socket){
+  socket.on('messageAccept', (data)=>{
+    console.log(data, 'messageAccept')
+    dispatch(addUserObject({Id: data.Id , profile:data.profile, name: data.name, text:data.text,date:data.date, verified: data.verified,  }))
+  })
 
 
 
-  const darkMode = useSelector((state) => state.darkMode);
-  const sidebarDetails = useSelector((state) => state.rightsidebar);
+
+}
+
+
+return () =>{
+  if(socket){
+    socket.off('messageAccept')
+  }
+}
+
+
+}, [socket])
+
+
+
+
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       {/* Background overlay */}
@@ -74,7 +121,7 @@ getRequest()
         <h1 className="font-bold text-lg">{value.name}</h1>
         <span className="font-semibold text-gray-500">{value.convText}</span>
         <div className="flex space-x-8 mt-4">
-          <button className="bg-blue-500 text-white px-1 py-1 rounded">
+          <button className="bg-blue-500 text-white px-1 py-1 rounded" onClick={()=>handleAccept(value.Id)}>
             Accept
           </button>
           <button className="bg-gray-300 px-1 py-1 rounded">Delete</button>
