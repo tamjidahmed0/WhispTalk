@@ -7,9 +7,22 @@ import { setDarkMode } from '@/features/darkModeSlice';
 const DarkMode = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const darkMode = useSelector((state) => state.darkMode);
+  const [theme, setTheme] = useState(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+
+
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem('theme') || 'light'; // Default to 'light'
+  //   setTheme(savedTheme);
+   
+  // }, []);
+
+
+
+
 
 
   return (

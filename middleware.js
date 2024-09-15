@@ -12,6 +12,8 @@ export async function middleware(request) {
 
 
 
+
+  
   // Check for the presence of cookies
   const hasTokenCookie = request.cookies.has('token');
   const hassvtCookie = request.cookies.has('svt');
@@ -33,8 +35,9 @@ export async function middleware(request) {
     const isOtpValidate = await validateOtp({token:otpToken})
     console.log(isOtpValidate, 'isotpvalidate')
     // Allow users to access the checkpoint page if they have the OTP cookie and are not logged in
-    if (isOtpValidate && hassvtCookie) {
+    if ( hassvtCookie) {
       return NextResponse.next();
+      // return NextResponse.redirect(new URL('/checkpoint', request.url));
     } else {
       return NextResponse.redirect(new URL('/signup', request.url));
     }

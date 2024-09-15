@@ -82,7 +82,7 @@ const Chat = () => {
               const isActive = pathname.startsWith(`/t/messages/${user.Id}`);
               return (
                 <Link href={`/t/messages/${user.Id}`} key={index}>
-                <div className={`mb-4 py-5 px-4 flex rounded-xl ${darkMode ? "bg-[#1E262F]" : "bg-white"} relative ${isActive && "bg-blue-200"}`}>
+                <div className={`${isActive && "bg-blue-200"} mb-4 py-5 px-4 flex rounded-xl ${darkMode ? "bg-[#1E262F]" : "bg-white"} relative `}>
                   <Image src={`${process.env.NEXT_PUBLIC_API}/${user.profile}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
                   <div className={`ml-4 ${darkMode && "text-white"}`}>
                     <h1 className="font-bold">{user.name}</h1>

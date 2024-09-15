@@ -23,6 +23,10 @@ try {
     )
 
     console.log(result, 'signup result')
+    if(result.status === 201){
+        router.replace('/checkpoint')
+    }
+    
 
 
 } catch (error) {

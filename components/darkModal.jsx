@@ -6,6 +6,18 @@ import { X  } from "@phosphor-icons/react";
 const DarkModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.darkMode);
+
+
+if(darkMode){
+localStorage.setItem('theme', 'dark')
+}else{
+  
+localStorage.setItem('theme', 'light')
+}
+
+
+
+
     if (!isOpen) return null;
 
 
@@ -28,7 +40,7 @@ const DarkModal = ({ isOpen, onClose }) => {
       <div className={`space-y-4 ${darkMode ===true && 'text-white'}`}>
         <div className="flex items-center justify-between">
           <span>Off</span>
-          <input type="radio" value='off' checked ={darkMode === false} name="darkMode" className="w-6 h-6 text-blue-600 form-radio" onChange={() => dispatch(setDarkMode(false))} />
+          <input type="radio" value='off' checked ={darkMode === false } name="darkMode" className="w-6 h-6 text-blue-600 form-radio" onChange={() => dispatch(setDarkMode(false))} />
         </div>
         <div className="flex items-center justify-between">
           <span>On</span>
