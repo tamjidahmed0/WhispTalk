@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import tamjid from "@/public/tamjid.jpg";
 import { Phone, DotsThreeCircle, PaperPlaneRight, Smiley, Paperclip } from "@phosphor-icons/react";
@@ -28,8 +28,13 @@ const DynamicMessagesPage = ({ params }) => {
   const [receiverDetails, setReceiverDetails] = useState({});
   const [inputText, setInputText] = useState("");
   const [profileDetails, setProfileDetails] = useState({});
+  const [loading, setLoading] = useState(false);
   const [id , setId] = useState('')
- 
+  const [offset, setOffset] = useState(0); 
+  const messagesEndRef = useRef(null);
+  const chatWindowRef = useRef(null); 
+  const limit = 30;
+
 
   //Message fetch
   useEffect(() => {
@@ -42,7 +47,7 @@ const DynamicMessagesPage = ({ params }) => {
         const userId = await getCookie("c_user");
         setId(userId.value)
 
-        const result = await getAllMessages(params.message_id);
+        const result = await getAllMessages(params.message_id, limit, 0);
         const profile = await getProfileDetails(userId.value);
         console.log(profile, 'profile')
 
@@ -65,6 +70,18 @@ const DynamicMessagesPage = ({ params }) => {
 
     getMessages();
   }, []);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const handleMessagesChange = (e) => {
@@ -146,12 +163,14 @@ const DynamicMessagesPage = ({ params }) => {
 
 
 
-  const handleCall = async() =>{
-//     console.log('call')
-//  const call_url = '/t/groupcall'
 
-//  window.open(call_url,   '_blank', // Opens in a new window
-//   'width=800,height=600,resizable=yes,scrollbars=no,status=no')
+
+
+  
+
+
+  const handleCall = async() =>{
+
 
 dispatch(setHandleCall())
 
@@ -177,8 +196,17 @@ useEffect(()=>{
 
 
 
-},[dispatch])
+},[])
 
+  // Scroll to bottom function
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
 
   //31rem initial
@@ -215,7 +243,7 @@ useEffect(()=>{
 
         {/* start body */}
 
-        <div className={`h-[calc(100vh-12rem)] overflow-y-auto py-5 ${darkMode === true && "bg-black"}`}>
+        <div className={`h-[calc(100vh-12rem)] overflow-y-auto py-5 ${darkMode === true && "bg-[#151B23]"}`}>
           <div className=" flex flex-col items-center justify-center mb-32">
           <Image alt="image" src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={200} height={200} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
             <h1 className={ `font-bold text-xl mt-4 ${darkMode === true && 'text-white'}`}>{receiverDetails.receiverName}</h1>
@@ -236,8 +264,8 @@ useEffect(()=>{
                   <button onClick={() => playAudio(index)}>Play</button>
                 </div>
               ) : (
-                <div className={`flex rounded-lg p-3 gap-3 items-start cursor-pointer ${data.whoSend ? "bg-white" : "bg-blue-500 "} max-w-xs`}>
-                <p className={`text-gray-700 ${data.whoSend ? "text-black" : "text-white "} break-words overflow-hidden`}>
+                <div className={`flex rounded-lg p-3 gap-3 items-start cursor-pointer ${data.whoSend ? `${darkMode  ?'bg-[#4C4C4C]' : 'bg-white'}` : "bg-blue-500 "} max-w-xs`}>
+                <p className={`text-gray-700 ${data.whoSend ? `${darkMode && ' text-white'}` : "text-white "} break-words overflow-hidden`}>
                   {data.text}
                 </p>
               </div>
@@ -247,6 +275,8 @@ useEffect(()=>{
 
        
           ))}
+
+<div ref={messagesEndRef} />
         </div>
 
         {/* end body */}
