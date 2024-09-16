@@ -89,7 +89,33 @@ const Chat = () => {
     };
   }, [socket]);
 
-  console.log(search, "search");
+
+
+
+  useEffect(()=>{
+
+    if(socket){
+      socket.on('messageRequest', (data)=>{
+        console.log(data, 'message req')
+        setRequestData((prev)=>({
+          ...prev,
+          count: data.count,
+          msg: data.msg
+        }))
+      })
+    }
+
+return () =>{
+  if(socket){
+    socket.off('messageRequest')
+  }
+}
+
+  },[socket])
+
+
+
+
 
   return (
     <div className={`w-[24rem] ${darkMode ? "bg-[#161A20]" : "bg-[#F8FAFF]"} flex flex-col py-4`}>
