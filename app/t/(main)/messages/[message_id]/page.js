@@ -16,16 +16,19 @@ import OutgoingCallLayout from "@/components/outgoingCallLayout";
 import { setMessageId } from "@/features/messageid";
 import { updateUserById } from "@/features/chatSlice";
 
+
 const DynamicMessagesPage = ({ params }) => {
   const socket = useSocketContext();
-  console.log(params.message_id, "params");
+  // console.log(params.message_id, "params");
   const dispatch = useDispatch();
   const isToggled = useSelector((state) => state.toggle.value);
   const handleClick = useSelector((state) => state.handleCall.value);
   const messageid = useSelector((state) => state.messageId.messageid);
+  const conversation = useSelector((state) => state.chats.users);
   const darkMode = useSelector((state) => state.darkMode);
   const [messages, setMessages] = useState([]);
   const [receiverDetails, setReceiverDetails] = useState({});
+  const [userTyping , setUserTyping] = useState(false)
   const [inputText, setInputText] = useState("");
   const [profileDetails, setProfileDetails] = useState({});
   const [loading, setLoading] = useState(false);
@@ -33,6 +36,8 @@ const DynamicMessagesPage = ({ params }) => {
   const [offset, setOffset] = useState(0); 
   const messagesEndRef = useRef(null);
   const chatWindowRef = useRef(null); 
+  const [receiverText , setReceiverText] = useState('')
+
   const limit = 30;
 
 
@@ -86,6 +91,7 @@ const DynamicMessagesPage = ({ params }) => {
 
   const handleMessagesChange = (e) => {
     setInputText(e.target.value);
+    
   };
 
 
@@ -140,6 +146,23 @@ const DynamicMessagesPage = ({ params }) => {
 
 
 
+
+
+  const handleEnterKeyPress = (e) =>{
+
+
+    if(e.key === "Enter"){
+      handleSend()
+    }
+
+
+  }
+
+
+
+
+
+
   //Receive message
 
   useEffect(() => {
@@ -149,6 +172,7 @@ const DynamicMessagesPage = ({ params }) => {
           setMessages((msgs) => [...msgs, data]);
           const trimText = data.text.substring(0, 23);
           dispatch(updateUserById({Id: params.message_id , newText:trimText}))
+          setReceiverText(trimText)
         }
       });
     }
@@ -160,6 +184,76 @@ const DynamicMessagesPage = ({ params }) => {
       }
     };
   }, [socket]);
+
+
+
+  useEffect(()=>{
+
+
+    if(socket){
+      socket.emit('typing', {
+        typingValue : inputText,
+        senderId : profileDetails.id,
+        receiverId : params.message_id
+      })
+    }
+
+    return () =>{
+      if(socket){
+        socket.off('typing')
+      }
+    }
+
+
+  },[ inputText])
+
+
+  useEffect(()=>{
+
+
+    if(socket){
+      socket.on('typing', (data)=>{
+        console.log(data, 'typing data...')
+        setUserTyping(data.isUserTyping)
+
+
+
+        const currentUser = conversation.find((user)=> user.Id === data.typerId)
+     
+
+
+        if (data.isUserTyping) {
+          dispatch(updateUserById({ 
+            Id: data.typerId, 
+            newText: 'Typing...' 
+          }));
+        } 
+        // Revert back to the previous value when typing stops
+        else {
+          dispatch(updateUserById({ 
+            Id: data.typerId, 
+            newText: currentUser?.text && receiverText
+         
+          }));
+        }
+
+
+
+
+
+
+
+      })
+    }
+
+    return () =>{
+      if(socket){
+        socket.off('typing')
+      }
+    }
+
+
+  },[ socket, inputText, receiverText])
 
 
 
@@ -221,7 +315,7 @@ useEffect(()=>{
             <Image src={`${process.env.NEXT_PUBLIC_API}/${receiverDetails.receiverPic}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
             <div className="pl-3">
               <h1 className={`font-bold text-lg ${darkMode === true && "text-white"}`}>{receiverDetails.receiverName}</h1>
-              <span className="text-green-500">Online</span>
+              <span className="text-green-500">{userTyping ? 'Typing...' : 'Online'}</span>
             </div>
           </div>
 
@@ -286,7 +380,7 @@ useEffect(()=>{
         <div className={`h-[5rem] ${darkMode === true ? "bg-[#1E262F]" : "bg-white"} border-r flex`}>
           <div className="flex items-center bg-blue-100 p-2 rounded-full w-full max-w-[80rem] m-auto ">
             <Paperclip className="text-blue-500 mx-2" size={24} />
-            <input type="text" value={inputText} onChange={handleMessagesChange} placeholder="Write a message..." className="flex-1 bg-transparent outline-none text-blue-900 placeholder-blue-400" />
+            <input type="text" onKeyDown={handleEnterKeyPress} value={inputText} onChange={handleMessagesChange} placeholder="Write a message..." className="flex-1 bg-transparent outline-none text-blue-900 placeholder-blue-400" />
             <Smiley className="text-blue-500 mx-2" size={24} />
             <button className="bg-blue-500 p-2 rounded-full">
               <PaperPlaneRight onClick={handleSend} className="text-white" size={24} />

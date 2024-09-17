@@ -17,13 +17,15 @@ const Chat = () => {
   const socket = useSocketContext();
   const darkMode = useSelector((state) => state.darkMode);
   const conversation = useSelector((state) => state.chats.users);
+
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   // const [conversation, setConversation] = useState([]);
   const [openRequestModal, setOpenRequestModal] = useState(false);
   const [requestData, setRequestData] = useState({});
   const [searchResult, setSearchResult] = useState([]);
-
+  const [userTyping , setUserTyping] = useState(false)
+  const [receiverText , setReceiverText] = useState('')
   const pathname = usePathname();
 
   const openModal = () => setOpenRequestModal(true);
@@ -78,6 +80,7 @@ const Chat = () => {
 
         const trimText = data.text.substring(0, 23);
         dispatch(updateUserById({ Id: data.iSend, newText: trimText }));
+        setReceiverText(trimText)
       });
     }
 
@@ -112,6 +115,13 @@ return () =>{
 }
 
   },[socket])
+
+
+
+
+
+
+
 
 
 
@@ -157,7 +167,7 @@ return () =>{
                     <Image src={`${process.env.NEXT_PUBLIC_API}/${user.profile}`} width={200} height={200} objectFit="cover" className="rounded-full w-[4rem] h-[4rem] object-cover" />
                     <div className={`ml-4 ${darkMode && "text-white"}`}>
                       <h1 className="font-bold">{user.name}</h1>
-                      <p className={`${darkMode ? "text-white" : "text-gray-500"} mt-1`}>{user.text}</p>
+                      <p className={`${darkMode ? "text-white" : "text-gray-500"} mt-1 ${userTyping && 'text-green-500'}`}>{user.text}</p>
                     </div>
                     <div className="absolute right-5 flex flex-col">
                       <span className="text-gray-500">{user.date}</span>

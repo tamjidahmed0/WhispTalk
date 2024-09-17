@@ -12,6 +12,7 @@ import handleCallReducer from '@/features/handleCallSlice'
 import outgoingCallToggle from '@/features/outgoingCallToggle'
 import messageIdReducer from '@/features/messageid'
 import chatReducer from '@/features/chatSlice'
+import inputTextValue from '@/features/inputTextValue'
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     handleCall: handleCallReducer,
     outgoingCall: outgoingCallToggle,
     messageId:messageIdReducer,
-    chats: chatReducer
+    chats: chatReducer,
+    input:inputTextValue
   },
 })
