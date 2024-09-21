@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; // Import usePathname hook
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 
 import tamjid from "@/public/tamjid.jpg";
 import { ChatCircleDots, Users, Phone, Gear, FramerLogo, Bell, UserPlus } from "@phosphor-icons/react";
@@ -12,11 +12,18 @@ import getCookie from "@/services/getCookie";
 import logo from "@/public/logo.png";
 import deleteCookies from "@/services/deleteCookies";
 import { useSocketContext } from "@/context/socket";
+import { setProfile , updateProfileField} from '@/features/profileDetails';
+
+
+
+
+
 
 const Sidebar = () => {
   const router = useRouter();
   const socket = useSocketContext();
   const pathname = usePathname(); // Get current path
+  const dispatch = useDispatch()
   const darkMode = useSelector((state) => state.darkMode);
   const [profileDetails, setProfileDetail] = useState({});
 
@@ -27,6 +34,10 @@ const Sidebar = () => {
         const result = await getProfileDetails(userId.value);
 
         setProfileDetail(result);
+
+        dispatch(setProfile(result))
+
+
       } catch (error) {
         console.log(error);
       }
@@ -57,17 +68,17 @@ const Sidebar = () => {
           <ChatCircleDots weight="bold" size={28} />
         </Link>
 
-        <Link href="/t/friends" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/friends" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
+        {/* <Link href="/t/friends" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/friends" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <Users weight="bold" size={28} />
-        </Link>
+        </Link> */}
 
         <Link href="/calls" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/calls" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <Phone weight="bold" size={28} />
         </Link>
 
-        <Link href="/t/requests" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/request" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
+        {/* <Link href="/t/requests" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/request" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <UserPlus weight="bold" size={28} />
-        </Link>
+        </Link> */}
         <Link href="/t/notification" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/notification" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <Bell weight="bold" size={28} />
         </Link>

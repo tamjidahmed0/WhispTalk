@@ -20,11 +20,11 @@ const Settings = () => {
       link: "/t/settings/profile",
     },
   
-    {
-      icon: <Lock className="  mx-2" size={28} />,
-      label: "Privacy",
-      link: "/t/settings/privacy",
-    },
+    // {
+    //   icon: <Lock className="  mx-2" size={28} />,
+    //   label: "Privacy",
+    //   link: "/t/settings/privacy",
+    // },
     {
       icon: <Key className="  mx-2" size={28} />,
       label: "Security and password",
@@ -35,21 +35,21 @@ const Settings = () => {
       label: "Personal details",
       link: "/t/settings/personal_details",
     },
-    {
-      icon: <Bell className="  mx-2" size={28} />,
-      label: "Notification",
-      link: "/t/settings/notification",
-    },
+    // {
+    //   icon: <Bell className="  mx-2" size={28} />,
+    //   label: "Notification",
+    //   link: "/t/settings/notification",
+    // },
     {
       icon: <Moon className="  mx-2" size={28} />,
       label: "Dark mood",
       link: "/t/settings/dark_mode",
     },
-    {
-      icon: <Info className="  mx-2" size={28} />,
-      label: "Help",
-      link: "/t/settings/help",
-    },
+    // {
+    //   icon: <Info className="  mx-2" size={28} />,
+    //   label: "Help",
+    //   link: "/t/settings/help",
+    // },
   
   ];
 

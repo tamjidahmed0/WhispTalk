@@ -268,15 +268,15 @@ const DynamicMessagesPage = ({ params }) => {
 
 dispatch(setHandleCall())
 
-  if( socket){
-    socket.emit('user:incomming' , {
-      id:id,
-      requestForCalling:params.message_id,
-      callerSocketId:socket.id,
-      // peerOffer: peerId
-    })
+  // if( socket){
+  //   socket.emit('user:incomming' , {
+  //     id:id,
+  //     requestForCalling:params.message_id,
+  //     callerSocketId:socket.id,
+  //     // peerOffer: peerId
+  //   })
   
-  }
+  // }
     
 console.log(id, 'click id')
 
