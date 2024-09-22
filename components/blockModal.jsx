@@ -24,15 +24,6 @@ const Modal = ({ isOpen, onClose, name }) => {
 
         {/* Options */}
         <div className={`space-y-4 ${darkMode === true && "text-white"}`}>
-          {/* <div className="flex items-center justify-between">
-          <span>Off</span>
-          <input type="radio" value='off' checked ={darkMode === false} name="darkMode" className="w-6 h-6 text-blue-600 form-radio" onChange={() => dispatch(setDarkMode(false))} />
-        </div>
-        <div className="flex items-center justify-between">
-          <span>On</span>
-          <input type="radio" value='on' checked ={darkMode === true} name="darkMode" className="w-6 h-6 text-blue-600 form-radio" onChange={()=>dispatch(setDarkMode(true))} />
-        </div> */}
-
           <h1 className=" text-xl font-semibold">Block messages and calls</h1>
           <ul className="list-disc pl-5 space-y-2 text-sm">
             <li>Your account won&rsquo;t receive messages or calls from {sidebarDetails.receiverName}&rsquo;s account.</li>

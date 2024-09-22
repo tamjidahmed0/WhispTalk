@@ -1,5 +1,5 @@
 'use client'
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import tamjid from '@/public/tamjid.jpg'
 import Link from 'next/link';
@@ -11,8 +11,8 @@ import UsernameModal from '@/modal/usernameModal';
 import PhotoModal from '@/modal/photoModal';
 import AboutModal from '@/modal/AboutModal';
 
-import { useSelector ,useDispatch } from 'react-redux';
-import { setProfile , updateProfileField} from '@/features/profileDetails';
+import { useSelector, useDispatch } from 'react-redux';
+import { setProfile, updateProfileField } from '@/features/profileDetails';
 
 
 
@@ -29,9 +29,9 @@ const Profile = () => {
 
   console.log(details, 'details from profile')
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    const getProfile = async () =>{
+    const getProfile = async () => {
       const userId = await getCookie('c_user')
       setUserId(userId.value)
       try {
@@ -51,9 +51,9 @@ const Profile = () => {
 
 
 
-  },[])
+  }, [])
 
-console.log(profileDetails, 'profle det')
+  console.log(profileDetails, 'profle det')
 
 
 
@@ -68,13 +68,13 @@ console.log(profileDetails, 'profle det')
   const renderModal = () => {
     switch (tab) {
       case 'name':
-        return <NameModal userId={userId} updateProfileField = {updateProfileField}/> ;
+        return <NameModal userId={userId} updateProfileField={updateProfileField} />;
       case 'username':
-        return <UsernameModal userId={userId} updateProfileField ={updateProfileField}/>;
+        return <UsernameModal userId={userId} updateProfileField={updateProfileField} />;
       case 'photo':
-        return <PhotoModal details = {profileDetails}/>;
+        return <PhotoModal details={profileDetails} />;
       case 'about':
-        return <AboutModal userId={userId} details = {profileDetails}/>;
+        return <AboutModal userId={userId} details={profileDetails} />;
       default:
         return null;
     }
@@ -86,12 +86,12 @@ console.log(profileDetails, 'profle det')
         <div className='flex flex-col justify-center items-center pt-10'>
           <Image alt='image' src={`${process.env.NEXT_PUBLIC_API}/${profileDetails?.profilePic}`} width={100} height={100} objectFit="cover" className="rounded-full w-[6rem] h-[6rem] object-cover" />
           <h1 className={`mt-3 text-xl font-bold ${darkMode === true && ' text-white'}`}>{profileDetails.name}</h1>
-          <span className=' font-semibold text-gray-500'>{`${profileDetails.username}`} </span> 
+          <span className=' font-semibold text-gray-500'>{`${profileDetails.username}`} </span>
           <div className='w-96  break-words overflow-wrap break-word whitespace-normal text-center mt-3'>
-  <span className={`font-normal text-gray-500 ${darkMode ===true && 'text-white'} `}>
-   {profileDetails.about}
-  </span> 
-</div>
+            <span className={`font-normal text-gray-500 ${darkMode === true && 'text-white'} `}>
+              {profileDetails.about}
+            </span>
+          </div>
 
         </div>
         <div className="py-10 mt-16">
