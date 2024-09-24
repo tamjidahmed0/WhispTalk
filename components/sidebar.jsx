@@ -79,7 +79,7 @@ const Sidebar = () => {
         {/* <Link href="/t/requests" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/request" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <UserPlus weight="bold" size={28} />
         </Link> */}
-        <Link href="/t/notification" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/notification" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
+        <Link href="/t/notifications" className={`flex justify-center px-3 py-4 rounded-full hover:scale-110 ${pathname === "/t/notification" ? "bg-[#5b96f7] text-white" : "hover:bg-[#5b96f7] hover:text-white"}`}>
           <Bell weight="bold" size={28} />
         </Link>
 

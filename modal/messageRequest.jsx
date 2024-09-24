@@ -70,6 +70,7 @@ if(socket){
   })
 
 
+  
 
 
 }
@@ -78,6 +79,7 @@ if(socket){
 return () =>{
   if(socket){
     socket.off('messageAccept')
+    
   }
 }
 
@@ -108,7 +110,7 @@ return () =>{
 
         {requestList.length > 0 ? (
   requestList.map((value, index) => (
-    <div key={index} className="flex bg-gray-200 px-6 py-4 rounded mb-4">
+    <div key={index} className="flex bg-gray-600 px-6 py-4 rounded mb-4">
       <Image
         alt="image"
         src={`${process.env.NEXT_PUBLIC_API}/${value.profile}`}

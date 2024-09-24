@@ -463,7 +463,7 @@ const DynamicMessagesPage = ({ params }) => {
                     <p className={`text-gray-700 ${data.whoSend ? `${darkMode && ' text-white'}` : "text-white "} ${data.unsent && ' italic'} break-words overflow-hidden`}>
                       {data.text}
                     </p>
-
+ 
                   </div>
 
                   {data.whoSend ? '' :  (
