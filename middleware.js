@@ -27,8 +27,9 @@ export async function middleware(request) {
   // Redirect logged-in users away from the login page to the messages page
   if (pathname === '/' || pathname === '/register' || pathname === '/login') {
     
-    const isValidate = await validateToken({token:tokenValue, user:userIdValue})
-    if (hasTokenCookie && isValidate ) {
+    // const isValidate = await validateToken({token:tokenValue, user:userIdValue})
+    //&& isValidate
+    if (hasTokenCookie  ) {
       return NextResponse.redirect(new URL('/t/messages', request.url));
     }
   } else if (pathname === '/checkpoint') {
